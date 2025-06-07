@@ -66,6 +66,15 @@ print_color ${PURPLE} "starship installed!"
 print_color ${PURPLE} "Configuring tmux..."
 touch ~/.tmux.conf
 add_to_end_of_file "set-option -g default-shell /usr/bin/fish" $TMUX_CONFIG
+
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+add_to_end_of_file "set -g @plugin 'tmux-plugins/tpm'" $TMUX_CONFIG
+add_to_end_of_file "set -g @plugin 'tmux-plugins/tmux-sensible'" $TMUX_CONFIG
+add_to_end_of_file "set -g @plugin 'egel/tmux-gruvbox'" $TMUX_CONFIG
+add_to_end_of_file "set -g @tmux-gruvbox 'dark' # or 'dark256', 'light', 'light256'" $TMUX_CONFIG
+add_to_end_of_file "run '~/.tmux/plugins/tpm/tpm'" $TMUX_CONFIG
+tmux source ~/.tmux.conf
 print_color ${PURPLE} " tmux configured!"
 
 # nvim
