@@ -7,24 +7,35 @@ sudo apt install fish
 
 
 # Set fish shell as default
-echo /usr/bin/fish | sudo tee -a /etc/shells
-chsh -s /usr/local/bin/fish
 
+if grep -q "/usr/bin/fish" /etc/shells; then
+else
+	echo /usr/bin/fish | sudo tee -a /etc/shells
+	chsh -s /usr/local/bin/fish
+fi
 
 # Install starship for fish shell
 curl -sS https://starship.rs/install.sh | sh
-echo "starship init fish | source" | sudo tee -a ~/.config/fish/config.fish
+
+if grep -q "starship init fish | source" ~/.config/fish/config.fish; then
+else
+
+	echo "starship init fish | source" | sudo tee -a ~/.config/fish/config.fish
+fi
+
 
 # - gruvbox-rainbow theme
 starship preset gruvbox-rainbow -o ~/.config/starship.toml
 
 # - vim mode in fish
-echo "fish_vi_key_bindings" | sudo tee -a ~/.config/fish/config.fish
+if grep -q "fish_vi_key_bindings" ~/.config/fish/config.fish; then
+else
 
+	echo "fish_vi_key_bindings" | sudo tee -a ~/.config/fish/config.fish
+fi
 
 # Install nvim
 sudo snap install nvim --classic
-
 
 # Alias
 alias --save v_fish='cd ~/.config/fish && vim config.fish'
